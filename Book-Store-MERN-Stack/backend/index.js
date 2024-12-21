@@ -1,41 +1,34 @@
 import express from 'express';
-import { PORT, mongoDBURL } from './config.js';
-import mongoose from 'mongoose';
-import booksRoute from './routes/booksRoute.js';
+import mongoose from 'mongoose'; // Import mongoose
+import { PORT, mongoDBURL } from './config.js'; // Import the constants
+import booksRoute from './routes/booksRoute.js'; // Import your route
 import cors from 'cors';
 
 const app = express();
 
-// Middleware for parsing request body
+// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Middleware for handling CORS POLICY
-// Option 1: Allow All Origins with Default of cors(*)
-app.use(cors());
-// Option 2: Allow Custom Origins
-// app.use(
-//   cors({
-//     origin: 'http://localhost:3000',
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type'],
-//   })
-// );
+// CORS Configuration
+app.use(cors({ origin: '*' }));
 
-app.get('/', (request, response) => {
-  console.log(request);
-  return response.status(234).send('Welcome To MERN Stack Tutorial');
+// Welcome Route
+app.get('/', (req, res) => {
+  return res.status(200).send('Welcome to the Book Store API');
 });
 
+// Use the books route
 app.use('/books', booksRoute);
 
+// Connect to MongoDB using Mongoose and start the server
 mongoose
-  .connect(mongoDBURL)
+  .connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log('App connected to database');
+    console.log('Connected to MongoDB successfully');
     app.listen(PORT, () => {
-      console.log(`App is listening to port: ${PORT}`);
+      console.log(`Server is listening on port: ${PORT}`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.log('Error connecting to MongoDB:', error.message);
   });

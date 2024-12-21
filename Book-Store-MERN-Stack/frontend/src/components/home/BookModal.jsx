@@ -1,44 +1,49 @@
-import { AiOutlineClose } from 'react-icons/ai';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { PiBookOpenTextLight } from 'react-icons/pi';
 import { BiUserCircle } from 'react-icons/bi';
 
 const BookModal = ({ book, onClose }) => {
+  const [open, setOpen] = React.useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    onClose(); // Close the modal from the parent component
+  };
+
   return (
-    <div
-      className='fixed bg-black bg-opacity-60 top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center'
-      onClick={onClose}
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
-      <div
-        onClick={(event) => event.stopPropagation()}
-        className='w-[600px] max-w-full h-[400px] bg-white rounded-xl p-4 flex flex-col relative'
-      >
-        <AiOutlineClose
-          className='absolute right-6 top-6 text-3xl text-red-600 cursor-pointer'
-          onClick={onClose}
-        />
-        <h2 className='w-fit px-4 py-1 bg-red-300 rounded-lg'>
-          {book.publishYear}
-        </h2>
-        <h4 className='my-2 text-gray-500'>{book._id}</h4>
-        <div className='flex justify-start items-center gap-x-2'>
-          <PiBookOpenTextLight className='text-red-300 text-2xl' />
-          <h2 className='my-1'>{book.title}</h2>
+      <DialogTitle id="alert-dialog-title">
+        Book Details
+      </DialogTitle>
+      <DialogContent>
+        <div className="flex justify-start items-center gap-x-2">
+          <PiBookOpenTextLight className="text-red-300 text-2xl" />
+          <h2 className="my-1 text-gray-800">{book.title}</h2>
         </div>
-        <div className='flex justify-start items-center gap-x-2'>
-          <BiUserCircle className='text-red-300 text-2xl' />
-          <h2 className='my-1'>{book.author}</h2>
+        <div className="flex justify-start items-center gap-x-2">
+          <BiUserCircle className="text-red-300 text-2xl" />
+          <h3 className="my-1 text-gray-600">{book.author}</h3>
         </div>
-        <p className='mt-4'>Anything You want to show</p>
-        <p className='my-2'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quia
-          voluptatum sint. Nisi impedit libero eveniet cum vitae qui expedita
-          necessitatibus assumenda laboriosam, facilis iste cumque a pariatur
-          nesciunt cupiditate voluptas? Quis atque earum voluptate dolor nisi
-          dolorum est? Deserunt placeat cumque quo dicta architecto, dolore
-          vitae voluptate sequi repellat!
-        </p>
-      </div>
-    </div>
+        <h4 className="my-2 text-gray-500">Published Year: {book.publishYear}</h4>
+        <DialogContentText id="alert-dialog-description">
+         qwertyuiopasdfghjklzxcvbnmwertyuiosdfgcvbnm
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Close</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

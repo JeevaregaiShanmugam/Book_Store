@@ -17,6 +17,7 @@ const bookSchema = mongoose.Schema(
   },
   {
     timestamps: true,
+    collection: 'books-collection', // Custom collection name
   }
 );
 
