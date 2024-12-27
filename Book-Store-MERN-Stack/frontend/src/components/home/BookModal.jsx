@@ -36,8 +36,10 @@ const BookModal = ({ book, onClose }) => {
           <h3 className="my-1 text-gray-600">{book.author}</h3>
         </div>
         <h4 className="my-2 text-gray-500">Published Year: {book.publishYear}</h4>
+        <h4 className="my-2 text-gray-500">Price: ${book.price}</h4>
+        <h4 className="my-2 text-gray-500">Image URL: {book.imageUrl}</h4>
         <DialogContentText id="alert-dialog-description">
-         qwertyuiopasdfghjklzxcvbnmwertyuiosdfgcvbnm
+          {/* Additional book details can go here */}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

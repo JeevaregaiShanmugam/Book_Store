@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
@@ -45,6 +44,7 @@ const BooksTable = ({ books }) => {
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell>Author</StyledTableCell>
             <StyledTableCell>Publish Year</StyledTableCell>
+            <StyledTableCell>Price</StyledTableCell>
             <StyledTableCell>Operations</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -55,6 +55,7 @@ const BooksTable = ({ books }) => {
               <StyledTableCell>{book.title}</StyledTableCell>
               <StyledTableCell>{book.author}</StyledTableCell>
               <StyledTableCell>{book.publishYear}</StyledTableCell>
+              <StyledTableCell>${book.price}</StyledTableCell>
               <StyledTableCell>
                 <div className='flex justify-center gap-x-4'>
                   <Link to={`/books/details/${book._id}`}>

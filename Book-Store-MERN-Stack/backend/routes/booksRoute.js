@@ -6,12 +6,12 @@ const router = express.Router();
 // Route for saving a new book
 router.post('/', async (req, res) => {
   try {
-    const { title, author, publishYear } = req.body;
+    const { title, author, publishYear, imageUrl, price } = req.body;
 
     // Validate the required fields
-    if (!title || !author || !publishYear) {
+    if (!title || !author || !publishYear || !price) {
       return res.status(400).send({
-        message: 'Please provide all required fields: title, author, publishYear',
+        message: 'Please provide all required fields: title, author, publishYear, price',
       });
     }
 
@@ -19,6 +19,8 @@ router.post('/', async (req, res) => {
       title,
       author,
       publishYear,
+      imageUrl, // Adding imageUrl
+      price, // Adding price
     });
 
     const savedBook = await newBook.save();
@@ -64,18 +66,18 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, author, publishYear } = req.body;
+    const { title, author, publishYear, imageUrl, price } = req.body;
 
     // Validate the required fields
-    if (!title || !author || !publishYear) {
+    if (!title || !author || !publishYear || !price) {
       return res.status(400).send({
-        message: 'Please provide all required fields: title, author, publishYear',
+        message: 'Please provide all required fields: title, author, publishYear, price',
       });
     }
 
     const updatedBook = await Book.findByIdAndUpdate(
       id,
-      { title, author, publishYear },
+      { title, author, publishYear, imageUrl, price }, // Include the new fields in the update
       { new: true } // Return the updated document
     );
 
