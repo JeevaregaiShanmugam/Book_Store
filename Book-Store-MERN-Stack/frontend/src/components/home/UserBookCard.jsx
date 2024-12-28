@@ -4,14 +4,13 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import BookModal from './BookModal';
 
-const UserBooksCard = ({ books }) => {
+const UserBooksCard = ({ books, addToCart }) => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedBook, setSelectedBook] = useState(null); // State to track the selected book
-  const navigate = useNavigate();
+  const [selectedBook, setSelectedBook] = useState(null);
 
   const handleShowModal = (book) => {
-    setSelectedBook(book); // Set the selected book
-    setShowModal(true); // Show the modal
+    setSelectedBook(book);
+    setShowModal(true);
   };
 
   return (
@@ -25,7 +24,7 @@ const UserBooksCard = ({ books }) => {
           <div className="relative">
             <div className="aspect-w-3 aspect-h-4">
               <img
-                src={item.imageUrl} // Assuming there's an image URL
+                src={item.imageUrl}
                 alt={item.title}
                 className="w-full h-full object-cover"
               />
@@ -34,31 +33,23 @@ const UserBooksCard = ({ books }) => {
           <div className="p-4">
             <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
             <p className="text-sm text-gray-500">{item.author}</p>
+            <p className="text-sm text-gray-500">Price: ${item.price}</p>
             <div className="flex justify-between items-center mt-4">
               <Button
                 variant="outlined"
                 color="primary"
                 size="small"
-                onClick={() => handleShowModal(item)} // Pass the clicked book to the modal
-                className="flex items-center space-x-2"
+                onClick={() => handleShowModal(item)}
               >
-                <BsInfoCircle className="mr-1" /> <span>View Details</span>
+                <BsInfoCircle className="mr-1" /> View Details
               </Button>
               <Button
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={() =>
-                  navigate('/payment', {
-                    state: {
-                      title: item.title,
-                      price: item.price,
-                      imageUrl: item.imageUrl,
-                    },
-                  })
-                }
+                onClick={() => addToCart(item)}
               >
-                Buy Now
+                Add to Cart
               </Button>
             </div>
           </div>

@@ -10,7 +10,7 @@ import UserHomePage from './pages/UserHomePage';
 import LoginPage from './pages/LoginPage';
 import Homes from './pages/Homes';
 import PaymentPage from './pages/PaymentPage';
-
+import Cart from './pages/Cart';
 const App = () => {
   const [role, setRole] = useState(localStorage.getItem('role') || null); // Persist role in localStorage
 
@@ -42,6 +42,7 @@ const App = () => {
           <Route path="/user" element={<UserHomePage setRole={handleSetRole} />} />
           <Route path="/homes" element={<Homes setRole={handleSetRole} />} />
           <Route path="/payment" element={<PaymentPage />} />
+          <Route path='/cart' element={<Cart />} />
         </>
       )}
 
